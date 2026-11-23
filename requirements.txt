@@ -6,6 +6,7 @@ sklearn-crfsuite
 # Solo para entrenar APF1 en local
 datasets
 pandas
-# Solo para APF2 / APF3 (BETO). Descomentar si tienes esos modelos:
-# torch
-# transformers
+# APF2 / APF3 (BETO). Con GPU NVIDIA:
+#   pip install torch --index-url https://download.pytorch.org/whl/cu126
+torch
+transformers

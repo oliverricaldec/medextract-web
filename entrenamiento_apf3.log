@@ -1,0 +1,125 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\olive\AppData\Local\Temp\claude\db47342b7418c731\6779d1dd-e6c6-4502-97e8-e4d93cab9cc1\scratchpad\venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\olive\.cache\huggingface\hub\models--dccuchile--bert-base-spanish-wwm-cased. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Dispositivo: cuda NVIDIA GeForce RTX 4060 Ti
+Descargando dataset HUMADEX/spanish_ner_dataset ...
+Train: 1800 | Val: 600 | Test: 600
+C:\Users\olive\AppData\Local\Temp\claude\db47342b7418c731\6779d1dd-e6c6-4502-97e8-e4d93cab9cc1\scratchpad\venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\olive\.cache\huggingface\hub. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 38397.60it/s]
+[transformers] [1mBertModel LOAD REPORT[0m from: dccuchile/bert-base-spanish-wwm-cased
+Key                                        | Status     | 
+-------------------------------------------+------------+-
+cls.predictions.decoder.weight             | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED | 
+cls.predictions.transform.dense.weight     | UNEXPECTED | 
+cls.predictions.transform.dense.bias       | UNEXPECTED | 
+cls.predictions.decoder.bias               | UNEXPECTED | 
+cls.predictions.bias                       | UNEXPECTED | 
+pooler.dense.bias                          | MISSING    | 
+pooler.dense.weight                        | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Semilla=42 época=1 pérdida=5.7000 F1 val=0.6484 (16s)
+Semilla=42 época=2 pérdida=1.7541 F1 val=0.7163 (16s)
+Semilla=42 época=3 pérdida=1.0186 F1 val=0.7180 (17s)
+Semilla=42 época=4 pérdida=0.5769 F1 val=0.7164 (17s)
+Semilla=42 época=5 pérdida=0.3060 F1 val=0.7255 (17s)
+Semilla=42 época=6 pérdida=0.1837 F1 val=0.7349 (17s)
+Semilla=42 época=7 pérdida=0.0997 F1 val=0.7369 (17s)
+Semilla=42 época=8 pérdida=0.0718 F1 val=0.7349 (17s)
+Semilla=42 época=9 pérdida=0.0413 F1 val=0.7462 (17s)
+Semilla=42 época=10 pérdida=0.0261 F1 val=0.7463 (17s)
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 24609.18it/s]
+[transformers] [1mBertModel LOAD REPORT[0m from: dccuchile/bert-base-spanish-wwm-cased
+Key                                        | Status     | 
+-------------------------------------------+------------+-
+cls.predictions.decoder.weight             | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED | 
+cls.predictions.transform.dense.weight     | UNEXPECTED | 
+cls.predictions.transform.dense.bias       | UNEXPECTED | 
+cls.predictions.decoder.bias               | UNEXPECTED | 
+cls.predictions.bias                       | UNEXPECTED | 
+pooler.dense.bias                          | MISSING    | 
+pooler.dense.weight                        | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Semilla=52 época=1 pérdida=5.7444 F1 val=0.6332 (17s)
+Semilla=52 época=2 pérdida=1.7714 F1 val=0.7145 (17s)
+Semilla=52 época=3 pérdida=0.9999 F1 val=0.7448 (18s)
+Semilla=52 época=4 pérdida=0.6095 F1 val=0.7384 (17s)
+Semilla=52 época=5 pérdida=0.3143 F1 val=0.7316 (17s)
+Semilla=52 época=6 pérdida=0.1887 F1 val=0.7289 (17s)
+Parada temprana: 3 épocas sin mejora
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 20927.96it/s]
+[transformers] [1mBertModel LOAD REPORT[0m from: dccuchile/bert-base-spanish-wwm-cased
+Key                                        | Status     | 
+-------------------------------------------+------------+-
+cls.predictions.decoder.weight             | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED | 
+cls.predictions.transform.dense.weight     | UNEXPECTED | 
+cls.predictions.transform.dense.bias       | UNEXPECTED | 
+cls.predictions.decoder.bias               | UNEXPECTED | 
+cls.predictions.bias                       | UNEXPECTED | 
+pooler.dense.bias                          | MISSING    | 
+pooler.dense.weight                        | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Semilla=62 época=1 pérdida=6.2267 F1 val=0.6294 (18s)
+Semilla=62 época=2 pérdida=1.7588 F1 val=0.7002 (17s)
+Semilla=62 época=3 pérdida=1.0409 F1 val=0.7251 (16s)
+Semilla=62 época=4 pérdida=0.5793 F1 val=0.7245 (17s)
+Semilla=62 época=5 pérdida=0.3537 F1 val=0.7381 (17s)
+Semilla=62 época=6 pérdida=0.2019 F1 val=0.7297 (16s)
+Semilla=62 época=7 pérdida=0.1239 F1 val=0.7496 (16s)
+Semilla=62 época=8 pérdida=0.0803 F1 val=0.7327 (16s)
+Semilla=62 época=9 pérdida=0.0520 F1 val=0.7413 (17s)
+Semilla=62 época=10 pérdida=0.0298 F1 val=0.7440 (16s)
+Parada temprana: 3 épocas sin mejora
+ semilla  mejor_f1_val  mejor_epoca                                                        checkpoint
+      42      0.746339           10 C:\Users\olive\Projects\medextract-web\modelos\apf3_semilla_42.pt
+      52      0.744770            3 C:\Users\olive\Projects\medextract-web\modelos\apf3_semilla_52.pt
+      62      0.749566            7 C:\Users\olive\Projects\medextract-web\modelos\apf3_semilla_62.pt
+F1 val: media = 0.7469 desviación = 0.002
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 28380.78it/s]
+[transformers] [1mBertModel LOAD REPORT[0m from: dccuchile/bert-base-spanish-wwm-cased
+Key                                        | Status     | 
+-------------------------------------------+------------+-
+cls.predictions.decoder.weight             | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED | 
+cls.predictions.transform.dense.weight     | UNEXPECTED | 
+cls.predictions.transform.dense.bias       | UNEXPECTED | 
+cls.predictions.decoder.bias               | UNEXPECTED | 
+cls.predictions.bias                       | UNEXPECTED | 
+pooler.dense.bias                          | MISSING    | 
+pooler.dense.weight                        | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Mejor semilla: 62
+VALIDACIÓN APF3
+   entidad  precision  recall     f1  TP  FP  FN
+  PROBLEM     0.7376  0.7706 0.7537 430 153 128
+TREATMENT     0.7729  0.7668 0.7698 194  57  59
+     TEST     0.6000  0.5455 0.5714  24  16  20
+    MICRO     0.7414  0.7579 0.7496 648 226 207
+TEST APF3
+   entidad  precision  recall     f1  TP  FP  FN
+  PROBLEM     0.7073  0.7355 0.7211 406 168 146
+TREATMENT     0.6766  0.6894 0.6829 182  87  82
+     TEST     0.6389  0.5111 0.5679  23  13  22
+    MICRO     0.6951  0.7096 0.7023 611 268 250
+Modelo guardado en C:\Users\olive\Projects\medextract-web\modelos\apf3_beto_crf.pt

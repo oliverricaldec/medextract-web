@@ -17,12 +17,33 @@ Funciones:
 app.py                   servidor Flask (API + página)
 medextract.py            carga de modelos e inferencia (mismo código del notebook)
 static/index.html        interfaz
+datos.py                 particiones y métricas estrictas (iguales al notebook)
 entrenar_apf1_local.py   entrena APF1 en tu PC (sin Colab)
+entrenar_apf3_local.py   entrena APF3 en tu PC con GPU
+iniciar.bat              abre la web con doble clic
 exportar_desde_colab.py  celda para exportar los modelos desde Colab
 modelos/                 aquí van los modelos
 ```
 
-## Puesta en marcha
+## Resultados (test reservado, 600 oraciones, F1 estricto micro)
+
+| Modelo | F1 |
+|---|---|
+| APF1 · CRF + rasgos manuales | 0.540 |
+| APF2 · BETO fine-tuned (Colab) | 0.684 |
+| **APF3 · BETO + CRF neuronal** | **0.702** |
+
+APF3 se entrenó en local (RTX 4060 Ti, ~10 min) con 3 semillas; la mejor por validación fue la 62
+(F1 val medio 0.747 ± 0.002). Detalle completo en `modelos/metricas_apf3.json` y `entrenamiento_apf3.log`.
+
+## Uso rápido
+
+Doble clic en **`iniciar.bat`** (la primera vez instala todo). Se abre http://localhost:5000
+
+El modelo APF3 (`modelos/apf3_beto_crf.pt`, 440 MB) no está en GitHub por su tamaño:
+si clonas el repo en otra PC, regenéralo con `python entrenar_apf3_local.py` (requiere GPU NVIDIA).
+
+## Puesta en marcha manual
 
 ```powershell
 python -m venv .venv

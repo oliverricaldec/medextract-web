@@ -107,15 +107,16 @@
 
   <section class="card">
     <h2>Rendimiento en el test reservado (F1 estricto por entidad)</h2>
-    <p class="muted">Resultados obtenidos en el notebook sobre 600 oraciones de test del dataset HUMADEX/spanish_ner_dataset.</p>
+    <p class="muted">600 oraciones de test del dataset HUMADEX/spanish_ner_dataset, mismas particiones para todos los modelos.
+      APF3: mejor de 3 semillas elegida por validación (F1 val medio 0.747 ± 0.002), entrenado con <code>entrenar_apf3_local.py</code>.</p>
     <div class="tabla-scroll">
       <table>
         <thead><tr><th>Modelo</th><th>PROBLEM</th><th>TREATMENT</th><th>TEST</th><th>Precisión</th><th>Recall</th><th>F1 micro</th></tr></thead>
         <tbody>
           <tr><td>APF1 · CRF + rasgos manuales</td><td class="num">0.566</td><td class="num">0.508</td><td class="num">0.361</td><td class="num">0.645</td><td class="num">0.465</td><td class="num">0.540</td></tr>
           <tr><td>APF2 inicial · BETO congelado + PCA + CRF</td><td class="num">0.424</td><td class="num">0.381</td><td class="num">0.037</td><td class="num">0.464</td><td class="num">0.346</td><td class="num">0.397</td></tr>
-          <tr class="mejor"><td>APF2 · BETO fine-tuned</td><td class="num">0.719</td><td class="num">0.646</td><td class="num">0.424</td><td class="num">0.715</td><td class="num">0.656</td><td class="num">0.684</td></tr>
-          <tr><td>APF3 · BETO + CRF neuronal</td><td colspan="6" class="muted">Sin métricas registradas en el notebook (ejecutar celdas 59–60).</td></tr>
+          <tr><td>APF2 · BETO fine-tuned</td><td class="num">0.719</td><td class="num">0.646</td><td class="num">0.424</td><td class="num">0.715</td><td class="num">0.656</td><td class="num">0.684</td></tr>
+          <tr class="mejor"><td>APF3 · BETO + CRF neuronal ★</td><td class="num">0.721</td><td class="num">0.683</td><td class="num">0.568</td><td class="num">0.695</td><td class="num">0.710</td><td class="num">0.702</td></tr>
         </tbody>
       </table>
     </div>

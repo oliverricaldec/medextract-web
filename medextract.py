@@ -238,7 +238,7 @@ def _construir_modelo_apf3():
 
 class APF3:
     id = "apf3"
-    nombre = "APF3 · BETO + CRF neuronal"
+    nombre = "APF3 · BETO + CRF neuronal (recomendado)"
 
     def __init__(self, ruta):
         import torch

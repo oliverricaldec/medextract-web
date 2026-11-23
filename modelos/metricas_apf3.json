@@ -1,0 +1,273 @@
+{
+  "mejor_semilla": 62,
+  "config": {
+    "longitud_subtokens": 128,
+    "batch_size": 16,
+    "epochs": 10,
+    "paciencia": 3,
+    "lr_beto": 2e-05,
+    "lr_cabeza_crf": 0.001,
+    "dropout": 0.1,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.1,
+    "semillas": [
+      42,
+      52,
+      62
+    ]
+  },
+  "semillas": [
+    {
+      "semilla": 42,
+      "mejor_f1_val": 0.746338605741066,
+      "mejor_epoca": 10,
+      "checkpoint": "C:\\Users\\olive\\Projects\\medextract-web\\modelos\\apf3_semilla_42.pt"
+    },
+    {
+      "semilla": 52,
+      "mejor_f1_val": 0.7447698744769875,
+      "mejor_epoca": 3,
+      "checkpoint": "C:\\Users\\olive\\Projects\\medextract-web\\modelos\\apf3_semilla_52.pt"
+    },
+    {
+      "semilla": 62,
+      "mejor_f1_val": 0.7495662232504339,
+      "mejor_epoca": 7,
+      "checkpoint": "C:\\Users\\olive\\Projects\\medextract-web\\modelos\\apf3_semilla_62.pt"
+    }
+  ],
+  "validacion": [
+    {
+      "entidad": "PROBLEM",
+      "precision": 0.7375643224699828,
+      "recall": 0.7706093189964157,
+      "f1": 0.7537248028045574,
+      "TP": 430,
+      "FP": 153,
+      "FN": 128
+    },
+    {
+      "entidad": "TREATMENT",
+      "precision": 0.7729083665338645,
+      "recall": 0.766798418972332,
+      "f1": 0.7698412698412699,
+      "TP": 194,
+      "FP": 57,
+      "FN": 59
+    },
+    {
+      "entidad": "TEST",
+      "precision": 0.6,
+      "recall": 0.5454545454545454,
+      "f1": 0.5714285714285713,
+      "TP": 24,
+      "FP": 16,
+      "FN": 20
+    },
+    {
+      "entidad": "MICRO",
+      "precision": 0.7414187643020596,
+      "recall": 0.7578947368421053,
+      "f1": 0.7495662232504339,
+      "TP": 648,
+      "FP": 226,
+      "FN": 207
+    }
+  ],
+  "test": [
+    {
+      "entidad": "PROBLEM",
+      "precision": 0.7073170731707317,
+      "recall": 0.7355072463768116,
+      "f1": 0.7211367673179395,
+      "TP": 406,
+      "FP": 168,
+      "FN": 146
+    },
+    {
+      "entidad": "TREATMENT",
+      "precision": 0.6765799256505576,
+      "recall": 0.6893939393939394,
+      "f1": 0.6829268292682926,
+      "TP": 182,
+      "FP": 87,
+      "FN": 82
+    },
+    {
+      "entidad": "TEST",
+      "precision": 0.6388888888888888,
+      "recall": 0.5111111111111111,
+      "f1": 0.5679012345679012,
+      "TP": 23,
+      "FP": 13,
+      "FN": 22
+    },
+    {
+      "entidad": "MICRO",
+      "precision": 0.6951080773606371,
+      "recall": 0.7096399535423926,
+      "f1": 0.7022988505747128,
+      "TP": 611,
+      "FP": 268,
+      "FN": 250
+    }
+  ],
+  "historial": [
+    {
+      "semilla": 42,
+      "epoca": 1,
+      "loss_train": 5.70004626501978,
+      "f1_val": 0.6483851310176721
+    },
+    {
+      "semilla": 42,
+      "epoca": 2,
+      "loss_train": 1.754106476771093,
+      "f1_val": 0.7162734422262552
+    },
+    {
+      "semilla": 42,
+      "epoca": 3,
+      "loss_train": 1.0185855909258918,
+      "f1_val": 0.7179788484136311
+    },
+    {
+      "semilla": 42,
+      "epoca": 4,
+      "loss_train": 0.5768819386716437,
+      "f1_val": 0.7163657542224812
+    },
+    {
+      "semilla": 42,
+      "epoca": 5,
+      "loss_train": 0.3060218181494063,
+      "f1_val": 0.7255483106105513
+    },
+    {
+      "semilla": 42,
+      "epoca": 6,
+      "loss_train": 0.18369982108078173,
+      "f1_val": 0.734932709186659
+    },
+    {
+      "semilla": 42,
+      "epoca": 7,
+      "loss_train": 0.09967122108271692,
+      "f1_val": 0.7369027058146229
+    },
+    {
+      "semilla": 42,
+      "epoca": 8,
+      "loss_train": 0.0717718098807124,
+      "f1_val": 0.7348837209302326
+    },
+    {
+      "semilla": 42,
+      "epoca": 9,
+      "loss_train": 0.04134821509365487,
+      "f1_val": 0.7461988304093568
+    },
+    {
+      "semilla": 42,
+      "epoca": 10,
+      "loss_train": 0.02605145378450377,
+      "f1_val": 0.746338605741066
+    },
+    {
+      "semilla": 52,
+      "epoca": 1,
+      "loss_train": 5.744427383473489,
+      "f1_val": 0.633248730964467
+    },
+    {
+      "semilla": 52,
+      "epoca": 2,
+      "loss_train": 1.771375286895617,
+      "f1_val": 0.7145443572721787
+    },
+    {
+      "semilla": 52,
+      "epoca": 3,
+      "loss_train": 0.9999058775405968,
+      "f1_val": 0.7447698744769875
+    },
+    {
+      "semilla": 52,
+      "epoca": 4,
+      "loss_train": 0.6095255572447734,
+      "f1_val": 0.7383891828336273
+    },
+    {
+      "semilla": 52,
+      "epoca": 5,
+      "loss_train": 0.3142571548840641,
+      "f1_val": 0.7315634218289085
+    },
+    {
+      "semilla": 52,
+      "epoca": 6,
+      "loss_train": 0.1886678013653882,
+      "f1_val": 0.7288836385115182
+    },
+    {
+      "semilla": 62,
+      "epoca": 1,
+      "loss_train": 6.226677862943801,
+      "f1_val": 0.6293706293706294
+    },
+    {
+      "semilla": 62,
+      "epoca": 2,
+      "loss_train": 1.7588339627316567,
+      "f1_val": 0.7001795332136446
+    },
+    {
+      "semilla": 62,
+      "epoca": 3,
+      "loss_train": 1.0408871031440465,
+      "f1_val": 0.7251264755480606
+    },
+    {
+      "semilla": 62,
+      "epoca": 4,
+      "loss_train": 0.5792564479386912,
+      "f1_val": 0.7244837758112095
+    },
+    {
+      "semilla": 62,
+      "epoca": 5,
+      "loss_train": 0.35366179207257464,
+      "f1_val": 0.7381228273464657
+    },
+    {
+      "semilla": 62,
+      "epoca": 6,
+      "loss_train": 0.20186347850656086,
+      "f1_val": 0.7297297297297297
+    },
+    {
+      "semilla": 62,
+      "epoca": 7,
+      "loss_train": 0.12393917248839825,
+      "f1_val": 0.7495662232504339
+    },
+    {
+      "semilla": 62,
+      "epoca": 8,
+      "loss_train": 0.08031405508518219,
+      "f1_val": 0.7326968973747017
+    },
+    {
+      "semilla": 62,
+      "epoca": 9,
+      "loss_train": 0.051993593705438934,
+      "f1_val": 0.7412993039443155
+    },
+    {
+      "semilla": 62,
+      "epoca": 10,
+      "loss_train": 0.0298212460711994,
+      "f1_val": 0.7440233236151604
+    }
+  ]
+}
