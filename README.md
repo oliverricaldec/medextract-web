@@ -1,6 +1,19 @@
 # MedExtract Web
 
+**Demo en línea:** https://oliverj1411-medextract.static.hf.space (los modelos corren en el navegador del visitante)
+
 Interfaz web para los modelos NER médicos del notebook `MedExtract_APF1_APF2_APF3_BETO_CRF.ipynb`.
+
+## Dos versiones
+
+| Versión | Dónde corre | Cómo |
+|---|---|---|
+| `web_estatica/` | En el navegador (Hugging Face Space estático, gratis) | APF3 exportado a ONNX int8 (110 MB, F1 0.692) + ONNX Runtime Web |
+| `app.py` + `static/` | En tu PC (Flask) | Modelo original en PyTorch (F1 0.702), `iniciar.bat` |
+
+Para volver a publicar la demo: `python exportar_navegador.py` y luego `python subir_a_huggingface.py`
+(requiere `hf auth login --token ...`). Los modelos exportados están en
+https://huggingface.co/oliverj1411/medextract-modelos.
 Detecta en textos clínicos en español tres tipos de entidad: **PROBLEM**, **TREATMENT** y **TEST**.
 
 Funciones:

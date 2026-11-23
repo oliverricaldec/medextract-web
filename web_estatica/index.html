@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MedExtract</title>
+<style>
+  :root {
+    --bg: #f5f7fa; --card: #fff; --text: #1d2433; --muted: #667085; --border: #e3e7ee;
+    --accent: #2f6fed;
+    --problem: #e5484d; --problem-bg: #fde8e8;
+    --treatment: #18794e; --treatment-bg: #ddf3e6;
+    --test: #2f6fed; --test-bg: #e1ebff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--text); line-height: 1.5; }
+  .contenedor { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+  header h1 { margin: 0; font-size: 28px; }
+  header h1 span { color: var(--accent); }
+  header p { margin: 4px 0 0; color: var(--muted); }
+  .aviso { margin-top: 12px; font-size: 13px; background: #fff7e6; border: 1px solid #f5d99a;
+           color: #7a5200; padding: 8px 12px; border-radius: 8px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+          padding: 18px; margin-top: 18px; }
+  h2 { font-size: 17px; margin: 0 0 12px; }
+  textarea { width: 100%; min-height: 140px; padding: 12px; font: inherit; font-size: 15px;
+             border: 1px solid var(--border); border-radius: 8px; resize: vertical; }
+  textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+  .fila { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+  .fila .espacio { flex: 1; }
+  .chip { border: 1px solid var(--border); background: #fafbfc; border-radius: 999px;
+          padding: 4px 12px; font-size: 13px; cursor: pointer; }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .modelo { display: flex; gap: 6px; align-items: center; font-size: 14px; padding: 6px 10px;
+            border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
+  .modelo input { accent-color: var(--accent); }
+  button.principal { background: var(--accent); color: #fff; border: 0; border-radius: 8px;
+                     padding: 10px 22px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  button.principal:disabled { opacity: .5; cursor: default; }
+  button.sec { background: #fff; border: 1px solid var(--border); border-radius: 6px;
+               padding: 5px 10px; font-size: 13px; cursor: pointer; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .error { color: var(--problem); font-weight: 600; }
+  .leyenda { display: flex; gap: 14px; font-size: 13px; flex-wrap: wrap; }
+  .leyenda span::before { content: ""; display: inline-block; width: 10px; height: 10px;
+                          border-radius: 3px; margin-right: 5px; background: currentColor; }
+  .resultados { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .resultados .card { margin-top: 0; }
+  .cab { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .texto-marcado { font-size: 15px; line-height: 2; white-space: pre-wrap; word-wrap: break-word;
+                   background: #fbfcfd; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  mark { border-radius: 4px; padding: 1px 4px; font-weight: 600; }
+  mark small { font-size: 10px; font-weight: 700; margin-left: 4px; opacity: .8; }
+  .PROBLEM { background: var(--problem-bg); color: var(--problem); }
+  .TREATMENT { background: var(--treatment-bg); color: var(--treatment); }
+  .TEST { background: var(--test-bg); color: var(--test); }
+  .contadores { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+  .contador { border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 600; }
+  .grupo h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; margin: 12px 0 6px; }
+  .grupo ul { margin: 0; padding-left: 18px; font-size: 14px; }
+  details { margin-top: 12px; font-size: 13px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; }
+  td.num { font-variant-numeric: tabular-nums; }
+  .mejor { font-weight: 700; color: var(--treatment); }
+  .tabla-scroll { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="contenedor">
+
+  <header>
+    <h1>Med<span>Extract</span></h1>
+    <p>Extracción de entidades clínicas en español: <b>problemas</b>, <b>tratamientos</b> y <b>pruebas</b>.</p>
+    <div class="aviso">Proyecto universitario. Las predicciones pueden ser incorrectas: no usar para decisiones médicas reales.
+      Los modelos se ejecutan en tu navegador: el texto no se envía a ningún servidor.</div>
+  </header>
+
+  <section class="card">
+    <h2>1. Escribe o pega un texto clínico</h2>
+    <textarea id="texto" placeholder="Ej.: El paciente presenta diabetes mellitus tipo 2 y se le prescribe metformina..."></textarea>
+    <div class="fila">
+      <span class="muted">Ejemplos:</span>
+      <div id="ejemplos" class="fila" style="margin:0"></div>
+      <span class="espacio"></span>
+      <span class="muted" id="contador">0 / 5000</span>
+    </div>
+
+    <h2 style="margin-top:18px">2. Elige los modelos</h2>
+    <div class="fila" id="lista-modelos"><span class="muted">Cargando modelos…</span></div>
+
+    <div class="fila" style="margin-top:16px">
+      <button class="principal" id="btn-analizar">Analizar</button>
+      <span class="muted">o Ctrl + Enter</span>
+      <span class="espacio"></span>
+      <div class="leyenda">
+        <span style="color:var(--problem)">PROBLEM · problema / diagnóstico</span>
+        <span style="color:var(--treatment)">TREATMENT · tratamiento</span>
+        <span style="color:var(--test)">TEST · prueba / examen</span>
+      </div>
+    </div>
+    <p id="mensaje" class="muted"></p>
+  </section>
+
+  <section id="resultados" class="resultados" style="margin-top:18px"></section>
+
+  <section class="card">
+    <h2>Rendimiento en el test reservado (F1 estricto por entidad)</h2>
+    <p class="muted">600 oraciones de test del dataset HUMADEX/spanish_ner_dataset, mismas particiones para todos los modelos.
+      APF3: mejor de 3 semillas elegida por validación (F1 val medio 0.747 ± 0.002), entrenado con <code>entrenar_apf3_local.py</code>.</p>
+    <div class="tabla-scroll">
+      <table>
+        <thead><tr><th>Modelo</th><th>PROBLEM</th><th>TREATMENT</th><th>TEST</th><th>Precisión</th><th>Recall</th><th>F1 micro</th></tr></thead>
+        <tbody>
+          <tr><td>APF1 · CRF + rasgos manuales</td><td class="num">0.566</td><td class="num">0.508</td><td class="num">0.361</td><td class="num">0.645</td><td class="num">0.465</td><td class="num">0.540</td></tr>
+          <tr><td>APF2 inicial · BETO congelado + PCA + CRF</td><td class="num">0.424</td><td class="num">0.381</td><td class="num">0.037</td><td class="num">0.464</td><td class="num">0.346</td><td class="num">0.397</td></tr>
+          <tr><td>APF2 · BETO fine-tuned</td><td class="num">0.719</td><td class="num">0.646</td><td class="num">0.424</td><td class="num">0.715</td><td class="num">0.656</td><td class="num">0.684</td></tr>
+          <tr class="mejor"><td>APF3 · BETO + CRF neuronal ★</td><td class="num">0.721</td><td class="num">0.683</td><td class="num">0.568</td><td class="num">0.695</td><td class="num">0.710</td><td class="num">0.702</td></tr>
+          <tr><td>APF3 · versión de esta web (comprimida int8, 110 MB)</td><td class="num">0.715</td><td class="num">0.668</td><td class="num">0.539</td><td class="num">0.692</td><td class="num">0.692</td><td class="num">0.692</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.min.js"></script>
+<script src="motor.js"></script>
+<script>
+const EJEMPLOS = [
+  ["Diabetes", "El paciente presenta diabetes mellitus tipo 2 y se le prescribe metformina de 850mg tras realizar un análisis de sangre."],
+  ["Neumonía", "Paciente con fiebre alta y tos persistente. Se solicita una radiografía de tórax que confirma neumonía. Se inicia tratamiento con amoxicilina."],
+  ["Hipertensión", "La paciente refiere dolor de cabeza y mareos. Se mide la presión arterial y se diagnostica hipertensión. Se recomienda enalapril y dieta baja en sal."],
+  ["Migraña", "Sufro de migraña desde hace años y el ibuprofeno ya no me alivia el dolor. El neurólogo me pidió una resonancia magnética."],
+];
+const TIPOS = ["PROBLEM", "TREATMENT", "TEST"];
+const NOMBRES_TIPO = { PROBLEM: "Problemas", TREATMENT: "Tratamientos", TEST: "Pruebas" };
+
+const $ = (id) => document.getElementById(id);
+const escapar = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+let ultimaRespuesta = null;
+
+// --- ejemplos y contador ---
+for (const [titulo, texto] of EJEMPLOS) {
+  const b = document.createElement("button");
+  b.className = "chip"; b.textContent = titulo;
+  b.onclick = () => { $("texto").value = texto; actualizarContador(); };
+  $("ejemplos").appendChild(b);
+}
+const actualizarContador = () => { $("contador").textContent = `${$("texto").value.length} / 5000`; };
+$("texto").addEventListener("input", actualizarContador);
+$("texto").addEventListener("keydown", (e) => { if (e.ctrlKey && e.key === "Enter") analizar(); });
+$("btn-analizar").onclick = analizar;
+
+// --- carga de modelos en el navegador ---
+async function cargarModelos() {
+  const cont = $("lista-modelos");
+  $("btn-analizar").disabled = true;
+  cont.innerHTML = '<span class="muted" id="progreso">Descargando modelo (110 MB, solo la primera vez)…</span>' +
+                   '<progress id="barra" max="100" value="0" style="width:220px"></progress>';
+  try {
+    await MedExtract.cargar((recibido, total) => {
+      if (!total) return;
+      const pct = Math.round((recibido / total) * 100);
+      $("barra").value = pct;
+      $("progreso").textContent = `Descargando modelo… ${pct}% (${(recibido / 1e6).toFixed(0)} / ${(total / 1e6).toFixed(0)} MB)`;
+    });
+    cont.innerHTML = "";
+    MedExtract.modelos.forEach((m, i) => {
+      const l = document.createElement("label");
+      l.className = "modelo";
+      l.innerHTML = `<input type="checkbox" value="${m.id}" ${i === MedExtract.modelos.length - 1 ? "checked" : ""}> ${escapar(m.nombre)}`;
+      cont.appendChild(l);
+    });
+    $("btn-analizar").disabled = false;
+  } catch (e) {
+    cont.innerHTML = `<span class="error">No se pudo cargar el modelo: ${escapar(e.message)}. Recarga la página.</span>`;
+  }
+}
+
+// --- análisis ---
+async function analizar() {
+  const texto = $("texto").value.trim();
+  const modelos = [...document.querySelectorAll("#lista-modelos input:checked")].map((i) => i.value);
+  if (!texto) return mensaje("Escribe un texto primero.", true);
+  if (!modelos.length) return mensaje("Selecciona al menos un modelo.", true);
+
+  $("btn-analizar").disabled = true;
+  mensaje("Analizando…");
+  if (texto.length > 5000) return mensaje("El texto supera 5000 caracteres.", true);
+  try {
+    const datos = await MedExtract.analizar(texto, modelos);
+    ultimaRespuesta = datos;
+    pintar(datos);
+    mensaje("");
+  } catch (e) {
+    mensaje(e.message, true);
+  } finally {
+    $("btn-analizar").disabled = false;
+  }
+}
+
+function mensaje(t, esError = false) {
+  $("mensaje").textContent = t;
+  $("mensaje").className = esError ? "error" : "muted";
+}
+
+function textoMarcado(texto, entidades) {
+  let html = "", pos = 0;
+  for (const e of entidades) {
+    html += escapar(texto.slice(pos, e.inicio));
+    html += `<mark class="${e.tipo}">${escapar(texto.slice(e.inicio, e.fin))}<small>${e.tipo}</small></mark>`;
+    pos = e.fin;
+  }
+  return html + escapar(texto.slice(pos));
+}
+
+function pintar(datos) {
+  const cont = $("resultados");
+  cont.innerHTML = "";
+  datos.resultados.forEach((r, idx) => {
+    const porTipo = Object.fromEntries(TIPOS.map((t) => [t, []]));
+    r.entidades.forEach((e) => porTipo[e.tipo].push(e.texto));
+
+    const contadores = TIPOS.map((t) =>
+      `<span class="contador ${t}">${NOMBRES_TIPO[t]}: ${porTipo[t].length}</span>`).join("");
+
+    const grupos = TIPOS.filter((t) => porTipo[t].length).map((t) => {
+      const unicos = [...new Set(porTipo[t].map((x) => x.replace(/[.,;:]+$/, "")))];
+      return `<div class="grupo"><h3 style="color:var(--${t.toLowerCase()})">${NOMBRES_TIPO[t]}</h3>
+              <ul>${unicos.map((x) => `<li>${escapar(x)}</li>`).join("")}</ul></div>`;
+    }).join("") || '<p class="muted">No se detectaron entidades.</p>';
+
+    const filas = r.tokens.map((t) =>
+      `<tr><td>${escapar(t.texto)}</td><td>${t.etiqueta === "O" ? '<span class="muted">O</span>' :
+        `<span class="${t.etiqueta.split("-")[1]}" style="padding:1px 6px;border-radius:4px">${t.etiqueta}</span>`}</td></tr>`).join("");
+
+    const card = document.createElement("article");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="cab"><h2>${escapar(r.nombre)}</h2><span class="muted">${r.tiempo_ms} ms</span></div>
+      <div class="texto-marcado">${textoMarcado(datos.texto, r.entidades)}</div>
+      <div class="contadores">${contadores}</div>
+      ${grupos}
+      <details><summary>Ver etiqueta BIOES de cada palabra</summary>
+        <table><thead><tr><th>Palabra</th><th>Etiqueta</th></tr></thead><tbody>${filas}</tbody></table>
+      </details>
+      <div class="fila">
+        <button class="sec" data-csv="${idx}">Descargar CSV</button>
+        <button class="sec" data-json="${idx}">Descargar JSON</button>
+      </div>`;
+    cont.appendChild(card);
+  });
+
+  cont.querySelectorAll("[data-csv]").forEach((b) => b.onclick = () => descargarCSV(+b.dataset.csv));
+  cont.querySelectorAll("[data-json]").forEach((b) => b.onclick = () => descargarJSON(+b.dataset.json));
+  cont.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function descargar(nombre, contenido, tipo) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([contenido], { type: tipo }));
+  a.download = nombre;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function descargarCSV(i) {
+  const r = ultimaRespuesta.resultados[i];
+  const csv = ["tipo,texto,inicio,fin",
+    ...r.entidades.map((e) => `${e.tipo},"${e.texto.replace(/"/g, '""')}",${e.inicio},${e.fin}`)].join("\n");
+  descargar(`entidades_${r.modelo}.csv`, "﻿" + csv, "text/csv");
+}
+
+function descargarJSON(i) {
+  const r = ultimaRespuesta.resultados[i];
+  descargar(`resultado_${r.modelo}.json`, JSON.stringify({ texto: ultimaRespuesta.texto, ...r }, null, 2), "application/json");
+}
+
+cargarModelos();
+</script>
+</body>
+</html>

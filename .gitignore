@@ -9,3 +9,8 @@ servidor.log
 # APF1 (crf_rasgos_manuales.joblib, <1 MB) sí se incluye para que la web funcione al clonar.
 modelos/apf2_beto_finetuned/
 modelos/*.pt
+
+# Versión navegador: el modelo exportado vive en Hugging Face (oliverj1411/medextract-modelos)
+web_estatica/modelo/
+web_estatica/casos_prueba.json
+exportacion.log
