@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+*.zip
+
+# Modelos BETO pesados (~440 MB cada uno): no van a GitHub.
+# APF1 (crf_rasgos_manuales.joblib, <1 MB) sí se incluye para que la web funcione al clonar.
+modelos/apf2_beto_finetuned/
+modelos/*.pt

@@ -1,0 +1,11 @@
+# Base (APF1 + web)
+flask>=3.0
+joblib
+scikit-learn
+sklearn-crfsuite
+# Solo para entrenar APF1 en local
+datasets
+pandas
+# Solo para APF2 / APF3 (BETO). Descomentar si tienes esos modelos:
+# torch
+# transformers
